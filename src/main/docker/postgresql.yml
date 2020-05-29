@@ -1,0 +1,11 @@
+version: '2'
+services:
+  multipleimagetest-postgresql:
+    image: postgres:12.1
+    # volumes:
+    #     - ~/volumes/jhipster/multipleImageTest/postgresql/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=multipleImageTest
+      - POSTGRES_PASSWORD=
+    ports:
+      - 5432:5432
