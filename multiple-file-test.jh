@@ -1,0 +1,70 @@
+DEFAULT_MIN_LENGTH = 1
+DEFAULT_MAX_LENGTH = 255
+NAME_MAX_LENGTH = 50
+
+entity Restaurant (apex_restaurant) {
+    name String required maxlength(50)
+    nameUzCyr String required maxlength(50)
+    nameRu String required maxlength(50)
+    address String required
+    addressUzCyr String required
+    addressRu String required
+    referencePoint String required
+    referencePointUzCyr String required
+    referencePointRu String required
+    minPlacePrice BigDecimal min(0)
+    maxPlacePrice BigDecimal min(0)
+    additionalInfo TextBlob
+    additionalInfoUzCyr TextBlob
+    additionalInfoRu TextBlob
+    phone String required maxlength(50)
+    site String
+    hasLocation Boolean
+    latitude Double required
+    longitude Double required
+    averageStar Float required min(0) max(5)
+    averageServiceStar Float required min(0) max(5)
+    averageFoodStar Float required min(0) max(5)
+    averagePriceStar Float required min(0) max(5)
+    reviewsCount Integer required min(0)
+    isPinned Boolean
+    pinPosition Integer min(0)
+    position Integer min(0)
+    status RestaurantStatus required
+    isBlocked Boolean required
+    cuisineType CuisineType
+    visibility Visibility required
+    createdBy String required maxlength(50)
+    createdDate Instant
+    lastModifiedBy String maxlength(50)
+    lastModifiedDate Instant
+}
+
+enum RestaurantStatus {
+    IN_SERVICE, OUT_OF_SERVICE, DISABLED
+}
+
+enum Visibility {
+    ACTIVE, INACTIVE
+}
+
+entity RestaurantImage (apex_restaurant_image) {
+    name String maxlength(50)
+  	url String maxlength(255)
+    position Integer min(0)
+    createdBy String required maxlength(50)
+    createdDate Instant
+    lastModifiedBy String maxlength(50)
+    lastModifiedDate Instant
+}
+
+relationship ManyToOne {
+	RestaurantImage{restaurant(name) required} to Restaurant
+}
+
+paginate * with pagination
+
+dto * with mapstruct
+
+service * with serviceClass
+
